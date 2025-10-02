@@ -86,41 +86,39 @@ def login():
 
 
 
-@app.route("/signup", methods=["GET", "POST"])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == "POST":
-        fullname = request.form["fullname"]
-        email = request.form["email"]
-        password = request.form["password"]
-        confirm_password = request.form["confirm_password"]
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
 
-        if password != confirm_password:
-            return render_template("signup.html", error="Passwords do not match")
+        if not username or not email or not password:
+            flash('Please fill all fields', 'error')
+            return render_template('signup.html')
 
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            return render_template("signup.html", error="Email already registered")
+        if User.query.filter((User.username == username) | (User.email == email)).first():
+            flash('User with that username or email already exists', 'error')
+            return render_template('signup.html')
 
-        hashed_pw = bcrypt.generate_password_hash(password).decode("utf-8")
-
-        # Create user
-        new_user = User(full_name=fullname, email=email, password=hashed_pw)
-        db.session.add(new_user)
+        # create new user
+        user = User(username=username, email=email)
+        user.set_password(password)
+        db.session.add(user)
         db.session.commit()
 
-        # ✅ Generate account number & create account
-        
-        acct_number = str(random.randint(1000000000, 9999999999))  # 10-digit acct no
-        account = Account(account_number=acct_number, balance=0.0, owner=new_user)
+        # create their bank account
+        account = Account(user_id=user.id, balance=0.0)
         db.session.add(account)
         db.session.commit()
 
-        
+        # generate API token
+        user.generate_token()
 
-        flash("Signup successful! Please login.", "success")
-        return redirect(url_for("login"))
+        flash('✅ Account created successfully. Please log in.', 'success')
+        return redirect(url_for('login'))   # <---- important
 
-    return render_template("signup.html")
+    return render_template('signup.html')
 
 
 
