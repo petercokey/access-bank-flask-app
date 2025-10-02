@@ -64,49 +64,57 @@ def login():
         email = request.form.get("email")
         password = request.form.get("password")
 
-        # look up user in DB
         user = User.query.filter_by(email=email).first()
 
-        if user and check_password_hash(user.password, password):
+        # ✅ use bcrypt to check password
+        if user and bcrypt.check_password_hash(user.password, password):
             session["user_id"] = user.id
             session["user_name"] = user.full_name
             return redirect(url_for("landing"))
         else:
-            return render_template("login.html", error="Invalid email or password")
+            flash("Invalid email or password", "danger")
+            return render_template("login.html")
 
     return render_template("login.html")
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+from flask_bcrypt import Bcrypt
+bcrypt = Bcrypt(app)
+
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
-    if request.method == 'POST':
-        full_name = request.form.get('username')  # renamed for clarity
-        email = request.form.get('email')
-        password = request.form.get('password')
+    if request.method == "POST":
+        full_name = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
 
         if not full_name or not email or not password:
-            flash('Please fill all fields', 'error')
-            return render_template('signup.html')
+            flash("Please fill all fields", "error")
+            return render_template("signup.html")
 
-        if User.query.filter_by(email=email).first():
-            flash('User with that email already exists', 'error')
-            return render_template('signup.html')
+        if User.query.filter((User.full_name == full_name) | (User.email == email)).first():
+            flash("User with that name or email already exists", "error")
+            return render_template("signup.html")
 
-        # create new user
-        hashed_pw = generate_password_hash(password)
+        # ✅ hash password with Bcrypt
+        hashed_pw = bcrypt.generate_password_hash(password).decode("utf-8")
+
         user = User(full_name=full_name, email=email, password=hashed_pw)
         db.session.add(user)
         db.session.commit()
 
-        # create their bank account
-        account = Account(user_id=user.id, account_number=str(random.randint(1000000000, 9999999999)), balance=0.0)
+        account = Account(
+            user_id=user.id,
+            account_number=str(random.randint(1000000000, 9999999999)),
+            balance=0.0
+        )
         db.session.add(account)
         db.session.commit()
 
-        flash('✅ Account created successfully. Please log in.', 'success')
-        return redirect(url_for('login'))
+        flash("✅ Account created successfully. Please log in.", "success")
+        return redirect(url_for("login"))
 
-    return render_template('signup.html')
+    return render_template("signup.html")
 
 
 @app.route("/other_banks", methods=["GET", "POST"])
