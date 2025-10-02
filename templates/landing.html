@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Access</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-lg p-6">
+      <h1 class="text-2xl font-bold text-orange-500 mb-8">AccessPay</h1>
+      <nav class="space-y-4 text-gray-700">
+        <a href="#" class="block hover:text-orange-500">🏦 Wallet</a>
+        <a href="#" class="block hover:text-orange-500">💸 Transfers</a>
+        <a href="#" class="block hover:text-orange-500">🎁 Rewards</a>
+        <a href="#" class="block hover:text-orange-500">⚽ Sport Wallet</a>
+        <a href="#" class="block hover:text-orange-500">🎟️ eVoucher</a>
+        <a href="#" class="block hover:text-orange-500">📜 History</a>
+        <a href="#" class="block hover:text-orange-500">📱 Mobile Topup</a>
+        <a href="#" class="block hover:text-orange-500">🌍 Intl Airtime</a>
+        <a href="#" class="block hover:text-orange-500">💳 My Card</a>
+        <a href="#" class="block hover:text-orange-500">⚙️ Settings</a>
+        <a href="#" class="block text-red-500">🚪 Logout</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 overflow-y-auto">
+
+      <!-- Welcome Message -->
+      <h2 class="text-2xl font-semibold mb-6">Good day, {{ name }}</h2>
+
+      <!-- Grid Layout -->
+      <div class="grid grid-cols-3 gap-6">
+
+        <!-- ATM Style Balance Card -->
+        <div class="col-span-1 transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+          <div class="bg-gradient-to-r from-orange-500 via-pink-500 to-purple-600 text-white p-6 rounded-2xl shadow-lg relative h-48">
+            <div class="flex justify-between items-center">
+              <h3 class="text-lg font-semibold">AccessPay Card</h3>
+              <span class="text-sm">VISA</span>
+            </div>
+            <div class="mt-6">
+              <p class="text-sm">Balance</p>
+              <h1 class="text-3xl font-bold">₦{{ balance }}</h1>
+            </div>
+            <div class="absolute bottom-4 left-6 text-sm">
+              <p class="font-semibold tracking-wider">**** **** **** {{ account_number[-4:] }}</p>
+              <p class="uppercase">{{ name }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Card -->
+        <div class="col-span-1 bg-white p-6 rounded-2xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+          <h3 class="text-xl font-semibold mb-4">Information</h3>
+          <p class="text-gray-600">📍 Location: Lagos</p>
+          <p class="text-gray-600">🏠 Address: Ikeja</p>
+          <p class="text-gray-600">🔑 Wallet ID: 6HE46U8D67</p>
+        </div>
+
+        <!-- Security Card -->
+        <div class="col-span-1 bg-white p-6 rounded-2xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+          <h3 class="text-xl font-semibold mb-4">Security</h3>
+          <p class="flex justify-between">2FA Enabled <span class="text-green-500">✔</span></p>
+          <p class="flex justify-between mt-2">Key <button class="bg-orange-500 text-white px-3 py-1 rounded-lg">Change</button></p>
+        </div>
+
+        <!-- Transactions Card -->
+        <div class="col-span-2 bg-white p-6 rounded-2xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+          <h3 class="text-xl font-semibold mb-4">Transactions</h3>
+          {% if recent_txns %}
+            <ul class="space-y-3">
+              {% for t in recent_txns %}
+                <li class="flex justify-between items-center">
+                  <span>{{ t.title }}</span>
+                  <span class="{% if t.type=='inflow' %}text-green-500{% else %}text-red-500{% endif %}">
+                    ₦{{ t.amount }}
+                  </span>
+                  <small class="text-gray-400">{{ t.time }}</small>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="text-gray-500">No recent transactions.</p>
+          {% endif %}
+        </div>
+
+        <!-- Rewards Card with Image -->
+        <div class="col-span-1 bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+         <img src="{{ url_for('static', filename='images/rewards.jpg') }}" alt="Bank Logo">
+          <h3 class="text-lg font-semibold">Rewards</h3>
+          <p class="text-gray-500 text-sm">Check your earned points</p>
+        </div>
+
+        <!-- Pay Services Card with Image -->
+        <div class="col-span-1 bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+          <img src="{{ url_for('static', filename='images/voucher.jpg') }}" alt="Bank Logo">
+          <h3 class="text-lg font-semibold">Pay Services</h3>
+          <p class="text-gray-500 text-sm">Pay bills instantly</p>
+        </div>
+
+        <!-- Mobile Recharge Card with Image -->
+        <div class="col-span-1 bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+          <img src="{{ url_for('static', filename='images/airtime.jpg') }}" alt="Bank Logo">
+          <h3 class="text-lg font-semibold">Mobile Recharge</h3>
+          <p class="text-gray-500 text-sm">Top up your phone</p>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</body>
+</html>
+
+
+
+
+
+

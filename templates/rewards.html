@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewards - Access Bank</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #ff6600, #ff944d);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .points {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff200;
+      margin-bottom: 20px;
+    }
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 25px;
+      background: #fff200;
+      color: #333;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Your Rewards</h1>
+    <div class="points">{{ reward }} pts</div>
+    <button class="btn" onclick="window.location.href='{{ url_for('landing') }}'">Back to Dashboard</button>
+  </div>
+</body>
+</html>
+

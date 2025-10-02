@@ -1,0 +1,95 @@
+<!-- templates/transfer_success.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transfer Successful</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #f0f6fc;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: #161b22;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .icon {
+      font-size: 60px;
+      color: #2ea043;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin: 0;
+      color: #f0f6fc;
+    }
+
+    p {
+      color: #c9d1d9;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .details {
+      text-align: left;
+      margin: 20px 0;
+      padding: 15px;
+      border-radius: 8px;
+      background: #fdfeff;
+    }
+
+    .details p {
+      margin: 6px 0;
+      font-size: 14px;
+      color: #0a0b0c;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 20px;
+      background: #238636;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #ff933b;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">✅</div>
+    <h2>Transfer Successful</h2>
+    <p>Your transaction has been completed.</p>
+
+    <div class="details">
+      <p><strong>Recipient:</strong> {{ account_number }}</p>
+      <p><strong>Bank:</strong> {{ bank }}</p>
+      <p><strong>Amount:</strong> ₦{{ amount }}</p>
+      <p><strong>Status:</strong> Successful ✅</p>
+      <p><strong>Time:</strong> {{ timestamp }}</p>
+    </div>
+
+    <a href="{{ url_for('landing') }}" class="btn">Back to Dashboard</a>
+  </div>
+</body>
+</html>

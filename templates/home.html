@@ -1,0 +1,314 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Bank - Home</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    .background-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .background-container img,
+    .background-container video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .background-container .active {
+      opacity: 1;
+    }
+    .overlay {
+      background: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .logo {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      z-index: 3;
+    }
+    .logo img {
+      width: 300px;
+      height: auto;
+      border-radius: 10px;
+    }
+    .top-right {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 3;
+    }
+    .signup-btn {
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      backdrop-filter: blur(15px);
+      background: rgba(255, 102, 0, 0.9);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .signup-btn:hover {
+      background: rgba(255, 102, 0, 1);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 30px rgba(255, 102, 0, 0.6);
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      text-align: center;
+      top: 30%;
+    }
+    h1 {
+      font-size: 40px;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    #cursor {
+      display: inline-block;
+      width: 3px;
+      background-color: #ff6600;
+      margin-left: 5px;
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 12px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background-color: #ff6600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #e65c00;
+      transform: scale(1.05);
+    }
+    .page-transition {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: #ff6600;
+      z-index: 9999;
+      transition: left 0.7s ease-in-out;
+    }
+    .page-transition.active {
+      left: 0;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Background slideshow -->
+  <div class="background-container">
+    <img src="{{ url_for('static', filename='images/background.jpg') }}" class="active">
+    <img src="{{ url_for('static', filename='images/background1.jpg') }}">
+    <video src="{{ url_for('static', filename='videos/background-video.mp4') }}" muted loop></video>
+  </div>
+
+  <div class="overlay"></div>
+
+  <!-- Logo -->
+  <div class="logo">
+    <img src="{{ url_for('static', filename='images/bank-logo.png') }}" alt="Bank Logo">
+  </div>
+
+  <!-- 🔥 Sign Up button in top-right -->
+  <div class="top-right">
+    <a href="{{ url_for('signup') }}" class="signup-btn transition-link">SIGN UP</a>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <h1 id="headline"></h1><span id="cursor"></span>
+    <p>Make your money work harder — with security, speed, and service you can trust.</p>
+    <a href="{{ url_for('login') }}" class="btn transition-link">LOGIN</a>
+    <a href="{{ url_for('learn_more') }}" class="btn transition-link">LEARN MORE</a>
+  </div>
+
+  <!-- Cards Section -->
+  <section class="relative z-10 bg-white py-16 px-8 mt-[100vh] shadow-lg">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      
+      <!-- Card 1 -->
+      <a href="/page1" class="group bg-orange-500 rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+        <img src="{{ url_for('static', filename='images/handshake.jpg') }}" alt="Card 1" class="w-full h-48 object-cover group-hover:opacity-90 transition">
+        <div class="p-4 text-center text-white font-bold">Become an Acess Patner</div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="/page2" class="group bg-orange-500 rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+        <img src="{{ url_for('static', filename='images/sustainability.jpg') }}" alt="Card 2" class="w-full h-48 object-cover group-hover:opacity-90 transition">
+        <div class="p-4 text-center text-white font-bold">Sustainability of Acess for years ad ounting</div>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="/page3" class="group bg-orange-500 rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+        <img src="{{ url_for('static', filename='images/mobility.jpg') }}" alt="Card 3" class="w-full h-48 object-cover group-hover:opacity-90 transition">
+        <div class="p-4 text-center text-white font-bold">Use Acess From anywhere and many african countries aroud the world</div>
+      </a>
+
+      <!-- Card 4 -->
+      <a href="/page4" class="group bg-orange-500 rounded-2xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl">
+        <img src="{{ url_for('static', filename='images/locator.jpg') }}" alt="Card 4" class="w-full h-48 object-cover group-hover:opacity-90 transition">
+        <div class="p-4 text-center text-white font-bold">Atm machines in Your Areas</div>
+      </a>
+
+    </div>
+  </section>
+  <!-- Footer Section -->
+<footer class="bg-orange-600 text-white py-12 mt-16">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+    
+    <!-- Logo / About -->
+    <div>
+      <img src="{{ url_for('static', filename='images/bank-logo.png') }}" alt="Bank Logo" class="w-32 mb-4">
+      <p class="text-sm opacity-80">Access Bank — Premium Banking, Smart Investments, and Secure Services you can trust.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="{{ url_for('login') }}" class="hover:underline">Login</a></li>
+        <li><a href="{{ url_for('signup') }}" class="hover:underline">Sign Up</a></li>
+        <li><a href="{{ url_for('learn_more') }}" class="hover:underline">Learn More</a></li>
+        <li><a href="/about" class="hover:underline">About Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Contact</h3>
+      <ul class="space-y-2 text-sm">
+        <li>Email: support@accessbank.com</li>
+        <li>Phone: +234 800 123 4567</li>
+        <li>Address: Lagos, Nigeria</li>
+      </ul>
+    </div>
+
+    <!-- Social Media -->
+    <div>
+      <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+      <div class="flex space-x-4">
+        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2c0-2 1.2-3 3-3h2v3h-1c-1 0-1 .5-1 1v1h2.5l-.5 3H15v7A10 10 0 0 0 22 12"/></svg>
+        </a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.5a9.7 9.7 0 0 1-2.8.8A4.9 4.9 0 0 0 23.3 3a9.8 9.8 0 0 1-3.1 1.2 4.9 4.9 0 0 0-8.5 4.4A13.8 13.8 0 0 1 1.7 3.1a4.9 4.9 0 0 0 1.5 6.5 4.8 4.8 0 0 1-2.2-.6v.1a4.9 4.9 0 0 0 3.9 4.8 4.9 4.9 0 0 1-2.2.1 4.9 4.9 0 0 0 4.6 3.4A9.8 9.8 0 0 1 0 19.5a13.8 13.8 0 0 0 7.5 2.2c9 0 14-7.5 14-14v-.6A10 10 0 0 0 24 4.5"/></svg>
+        </a>
+        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14C2 0 0 2 0 5v14c0 3 2 5 5 5h14c3 0 5-2 5-5V5c0-3-2-5-5-5zM8 19H5V9h3v10zM6.5 7.5C5.7 7.5 5 6.8 5 6s.7-1.5 1.5-1.5S8 5.2 8 6s-.7 1.5-1.5 1.5zM20 19h-3v-5c0-1.2-.8-2-2-2s-2 .8-2 2v5h-3V9h3v1.2c.6-.9 1.8-1.2 2.8-1.2 2.2 0 4.2 1.8 4.2 4.2V19z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/30 mt-10 pt-6 text-center text-sm opacity-75">
+    © 2025 Access Bank. All rights reserved.
+  </div>
+</footer>
+
+
+  <!-- Page transition overlay -->
+  <div class="page-transition"></div>
+
+  <script>
+    // Typewriter effect
+    const texts = ["Premium Banking, Redefined", "Smart Investments", "Secure & Fast"];
+    let textIndex = 0, charIndex = 0;
+    const speed = 100;
+    function typeWriter() {
+      if (charIndex < texts[textIndex].length) {
+        document.getElementById("headline").innerHTML += texts[textIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(typeWriter, speed);
+      } else {
+        setTimeout(() => {
+          document.getElementById("headline").innerHTML = "";
+          charIndex = 0;
+          textIndex = (textIndex + 1) % texts.length;
+          typeWriter();
+        }, 2000);
+      }
+    }
+    window.onload = typeWriter;
+
+    // Background slideshow
+    const slides = document.querySelectorAll('.background-container img, .background-container video');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      if (slides[current].tagName === "VIDEO") slides[current].pause();
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+      if (slides[current].tagName === "VIDEO") slides[current].play();
+    }, 6000);
+
+    // Page transition swipe effect
+    const transition = document.querySelector('.page-transition');
+    const links = document.querySelectorAll('.transition-link');
+    links.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        transition.classList.add('active');
+        const target = this.getAttribute('href');
+        setTimeout(() => {
+          window.location.href = target;
+        }, 700);
+      });
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,54 @@
+In Python, when you put @staticmethod on a method inside a class, it means:
+
+The method does not depend on self or cls (so it doesn’t need access to the object instance or the class).
+
+You can call it directly on the class without creating an object.
+
+
+@staticmethod is super handy when you want to keep related functions inside a class but don’t actually need to deal with the object itself.
+
+Think of it like:
+
+@staticmethod → just a utility function grouped inside a class.
+
+@classmethod → works on the class itself (can modify class variables).
+
+Normal methods (def ...) → work on the object instance (self).
+
+That’s why for your bank transfer logic, @staticmethod is perfect — no need to create Bank() objects, just call Bank.transfer_to_other_bank(...).
+
+✅ Why this matters for you
+
+Since your Bank class methods don’t rely on self (object state), it’s cleaner and simpler to just call them directly.
+
+So yes — you don’t need to create a default object of Bank in your app.py.
+
+                WHEN AND HOW TO USE __init__ function
+
+1. __init__ is only needed if the class stores state
+e,g class Bank:
+    def __init__(self, name):
+        self.name = name   # store something in the object
+
+    def greet(self):
+        return f"Welcome to {self.name} Bank"
+b = Bank("Access")
+print(b.greet())   # Welcome to Access Bank
+
+2. If no state is stored, __init__ is optional
+class Bank:
+    def transfer_to_other_bank(self, account_number, amount):
+        return f"Sent ₦{amount} to {account_number}"
+                EVEN WITHOUT __init__ U CAN STILL DO:
+b = Bank()   # ✅ object still gets created, just with no attributes
+print(b.transfer_to_other_bank("1234567890", 2000))
+
+
+
+✅ Summary:
+
+__init__ → only needed if you want to save per-object data (like balance, account name).
+
+No __init__ → class can still exist, just won’t hold state.
+
+@staticmethod → skip objects completely, treat the class as a namespace for functions.

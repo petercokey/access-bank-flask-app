@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Access Bank</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: url("{{ url_for('static', filename='images/background2.jpg') }}") no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .signup-container {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .signup-container h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #ff6600;
+    }
+
+    .signup-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .signup-btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      backdrop-filter: blur(15px);
+      background: rgba(255, 102, 0, 0.8);
+      box-shadow: 0 8px 25px rgba(255, 102, 0, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .signup-btn:hover {
+      background: rgba(255, 102, 0, 1);
+      transform: scale(1.05);
+    }
+
+    .signup-container a {
+      display: block;
+      margin-top: 15px;
+      color: #ff6600;
+      text-decoration: none;
+    }
+
+    .signup-container a:hover {
+      text-decoration: underline;
+    }
+
+    .logo img {
+    width: 200px;   /* 🔥 adjust this size */
+    height: auto;
+    border-radius: 50px; /* optional: makes edges rounded */
+  }
+  </style>
+</head>
+<body>
+
+    <div class="logo">
+    <img src="{{ url_for('static', filename='images/bank-logo.png') }}" alt="Bank Logo">
+  </div>
+  <div class="overlay"></div>
+  <div class="signup-container">
+    <h2>Create Account</h2>
+    <form method="POST" action="{{ url_for('signup') }}">
+  <input type="text" name="fullname" placeholder="Full Name" required>
+  <input type="email" name="email" placeholder="Email Address" required>
+  <input type="password" name="password" placeholder="Password" required>
+  <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+  <button type="submit" class="signup-btn">Sign Up</button>
+</form>
+
+    <a href="{{ url_for('login') }}">Already have an account? Login</a>
+  </div>
+</body>
+</html>

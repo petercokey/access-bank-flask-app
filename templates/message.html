@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url("{{ url_for('static', filename='images/home-bg.jpg') }}") no-repeat center center/cover;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .message-box {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+    }
+
+    .message-box h1 {
+      font-size: 1.6em;
+      margin-bottom: 15px;
+    }
+
+    .message-box p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+
+    .message-box a {
+      display: inline-block;
+      background: #ff6600;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .message-box a:hover {
+      background: #e55a00;
+    }
+  </style>
+</head>
+<body>
+  <div class="message-box">
+    <h1>Notification</h1>
+    <p>{{ message }}</p>
+    <a href="{{ url_for('home') }}">⬅ Back to Home</a>
+  </div>
+</body>
+</html>
+

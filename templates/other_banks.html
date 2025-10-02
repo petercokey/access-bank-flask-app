@@ -1,0 +1,190 @@
+<!-- templates/other_banks.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Banks Transfer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #0d1117;
+            color: #f0f6fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 15px;
+        }
+
+        /* Account info card */
+        .account-card {
+            background: #f1f2f3;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .account-card h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+        .account-card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #f9fcff;
+        }
+        .actions {
+            float: right;
+        }
+        .actions button {
+            background: none;
+            border: none;
+            color: #58a6ff;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* Frequent beneficiaries */
+        .beneficiaries {
+            margin: 20px 0;
+        }
+        .beneficiaries h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #fbfdff;
+        }
+        .beneficiary-list {
+            display: flex;
+            gap: 15px;
+        }
+        .beneficiary {
+            background: #ffffff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .beneficiary span {
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Form */
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #c9d1d9;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #21262d;
+            color: #f0f6fc;
+        }
+        button.transfer-btn {
+            width: 100%;
+            padding: 14px;
+            background: #238636;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button.transfer-btn:hover {
+            background: #2ea043;
+        }
+
+        /* Bottom navigation */
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #161b22;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #21262d;
+        }
+        .navbar a {
+            text-decoration: none;
+            color: #8b949e;
+            font-size: 14px;
+            text-align: center;
+        }
+        .navbar a.active {
+            color: #58a6ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Account Info -->
+        <div class="account-card">
+            <h2>0089749653</h2>
+            <p>SOLO</p>
+            <p>Alt. Number: <strong>1162600372</strong></p>
+            <p>Account Status: <strong>REGULAR</strong></p>
+            <div class="actions">
+                <button>👁</button>
+                <button>🔗</button>
+            </div>
+        </div>
+
+        <!-- Frequent Beneficiaries -->
+        <div class="beneficiaries">
+            <h3>Frequent Beneficiaries</h3>
+            <div class="beneficiary-list">
+                <div class="beneficiary">M</div>
+                <div class="beneficiary">CP</div>
+                <div class="beneficiary">PT</div>
+            </div>
+        </div>
+
+        <!-- Transfer Form -->
+        <form method="POST">
+            <label for="bank">Select Bank</label>
+            <select name="bank" id="bank" required>
+                {% for bank in banks %}
+                    <option value="{{ bank }}">{{ bank }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="account_number">Beneficiary Account Number</label>
+            <input type="text" name="account_number" placeholder="Enter account number" required>
+
+            <label for="amount">₦ Amount</label>
+            <input type="number" name="amount" placeholder="Enter amount" required>
+
+            <button type="submit" class="transfer-btn">Transfer</button>
+        </form>
+    </div>
+
+    <!-- Bottom Navbar -->
+    <div class="navbar">
+        <a href="{{ url_for('landing') }}" class="active">🏠<br>Home</a>
+        <a href="#">📋<br>Menu</a>
+        <a href="#">📷<br>Scan</a>
+        <a href="#">🎧<br>Support</a>
+        <a href="#">👤<br>Profile</a>
+    </div>
+</body>
+</html>

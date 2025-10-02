@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px;
+        }
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: #111;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.7);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #222;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #4CAF50;
+            transition: transform 0.2s ease;
+        }
+        li:hover {
+            transform: scale(1.02);
+        }
+        .status-success {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .status-failed {
+            color: #f44336;
+            font-weight: bold;
+        }
+        p {
+            text-align: center;
+            color: #aaa;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+        }
+        a:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Transaction History</h2>
+        {% if history %}
+            <ul>
+                {% for tx in history %}
+                    <li>
+                        <strong>₦{{ tx.amount }}</strong> → {{ tx.recipient }}
+                        <span class="status-{{ tx.status|lower }}">
+                            ({{ tx.status }})
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No transactions yet.</p>
+        {% endif %}
+
+        <div style="text-align:center;">
+            <a href="{{ url_for('landing') }}">⬅ Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
